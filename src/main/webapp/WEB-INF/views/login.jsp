@@ -16,12 +16,12 @@
                 <h1>TaskPilot</h1>
                 <input type="hidden" name="action" value="login">
 
-                <input type="text" class="input-field" placeholder="E-mail" id="email" required>
+                <input type="text" class="input-field" placeholder="E-mail" id="email" name="email" required>
                 <div class="passwordInputContainer">
-                    <input type="password" class="input-field" placeholder="Password" id="password" required>
+                    <input type="password" class="input-field" placeholder="Password" id="password" name="password" minlength="8" required>
                     <p class="helper-text">(at least 8 characters)</p>
                 </div>
-                <input type="text" class="input-field" placeholder="Username" id="username" required>
+                <input type="text" class="input-field" placeholder="Username" id="username" name="username" minlength="4" required>
             </div>
             <div class="buttons">
                 <button type="submit" class="button" id="login">Login</button>
@@ -31,16 +31,18 @@
         
     </div>
 
-    <% 
-        String alert = (String) request.getAttribute("Invalid E-mail");
-        if (alert != null){
+    <%
+        String errorMessage = (String) request.getParameter("error");
+        if (errorMessage != null) {
     %>
-        <script>
-            alert("<%= alert %>");
-        </script>
+            <script>
+                window.onload = function () {
+                    alert("<%= errorMessage %>");
+                };
+            </script>
     <%
         }
+        
     %>
-    <script src = "/taskpilot/assets/js/script-login.js"></script>
 </body>
 </html>
