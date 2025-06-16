@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="en">
    <head>
@@ -7,7 +7,7 @@
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
       <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Inter:wght@400&family=Poppins:wght@400&display=swap" rel="stylesheet">
-      <link href="/taskpilot/assets/css/style-tasks.css" rel="stylesheet">
+      <link href="${pageContext.request.contextPath}/assets/css/style-tasks.css" rel="stylesheet">
       <title>Tasks</title>
    </head>
    <body>
@@ -28,7 +28,7 @@
          </header>
 
          <div class="form-background invisible" id="form-background">
-            <form action="/taskpilot/Controller_T" class="form-addTask">
+            <form action="${pageContext.request.contextPath}/Controller_T" class="form-addTask" method="post">
                <div class="form-container">
                   <input type="hidden" name="action" value="add_task">
 
@@ -39,15 +39,15 @@
                   
                   <div class="input-label">
                      <label for="name">Name:</label>
-                     <input type="text" name="name" required>
+                     <input type="text" name="name" maxlength="75" required>
                   </div>
                   <div class="input-label">
                      <label for="description">Description:</label>
-                     <input type="text" name="description">
+                     <input type="text" name="description" maxlength="375">
                   </div>
                   <div class="input-label">
                      <label for="term">Deadline:</label>
-                     <input type="date" name="term">
+                     <input type="date" name="term" id="term-input">
                   </div>
 
                   <div class="btn">
@@ -58,11 +58,82 @@
             </form>
          </div>
 
-         <div class="task-list">
-            
+            <div class="task-list">
+               <c:forEach var="task" items="${taskList}">
+                  <div class="task-card" id="${task.taskID}">
+                     <p class="status">${task.status}</p>
+                     <p class="name">${task.name}</p>
+                     <p class="description">${task.description}</p>
+                     <p class="term">${task.term}</p>
+                     
+                     <button class="menu-icon">⋮</button>
+                  </div>
+               </c:forEach>
+            </div>
+
+            <div class="task-data-background invisible" id="ETD_background">
+               <form action="${pageContext.request.contextPath}/Controller_T" class="form-EditTask" id="form-EditTask" method="post">
+                  <div class="task-data__container" >
+                     <input type="hidden" name="action" value="change-task__data">
+                     <input type="hidden" name="taskID" id="taskID">
+                     <input type="hidden" name="list" id="list">
+   
+                     <div class="btn-remove-container">
+                        <div class="fa fa-remove fa-2x btn-remove" id="btn-remove-form-ETD"></div>
+                        <p class="form-upper-text">Edit the task ${task_name} data</p>
+                     </div>
+   
+                  
+                     <div id="task-data__name" class="input-label">
+                        <label for="name"> Name: </label>
+                        <br>
+                        <input type="text" name="name" placeholder="Type here the new name of this task" id="input_name">
+                     </div>
+   
+                     <div id="task-data__description" class="input-label">
+                        <label for="description"> Description: </label>
+                        <br>
+                        <input type="text" name="description" placeholder="Type here the new description of this task" id="input_desc">
+                     </div>
+   
+                     <div id="task-data__term" class="input-label">
+                        <label for="term"> Term: </label>
+                        <br>
+                        <input type="date" name="term" id="input_term">
+                     </div>
+   
+                     <div id="task-data__status" class="input-label">
+                        <label for="status">New status:</label>
+                        <br>
+                        <select id="status-selection" name="status" id="input_status">
+                           <option value="Pending"> Pending </option>
+                           <option value="On progress"> On progress </option>
+                           <option value="Finished"> Finished </option>
+                        </select>
+   
+                        <div class="btn">
+                           <button type="submit" id="submit-button_ETD">OK</button>
+                        </div>
+                     </div>
+                  </div>
+               </form>
+            </div>
          </div>
       </div>
-      <script src="/taskpilot/assets/js/script-task.js"></script>
+      
+      <script src="${pageContext.request.contextPath}/assets/js/script-task.js"></script>
+      <%
+         String message = (String) request.getParameter("message");
+         if (message != null) {
+      %>
+         <script>
+            window.onload = function () {
+               alert("<%= message %>");
+            };
+         </script>
+      <%
+         }
+      %>
    </body>
 </html>
 

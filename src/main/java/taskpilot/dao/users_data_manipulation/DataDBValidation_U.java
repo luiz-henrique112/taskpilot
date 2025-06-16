@@ -54,14 +54,6 @@ public class DataDBValidation_U {
                } else if (checkResult == CHECK_NO_RESULT) {
                   attempt++;
                }
-
-               if (!rs.isBeforeFirst()) {
-                  return switch (action) {
-                     case "login" -> false;
-                     case "signIn" -> true;
-                     default -> throw new IllegalArgumentException("Invalid action: " + action);
-                  };
-               }
             }
          }
          return isValid;
@@ -71,7 +63,7 @@ public class DataDBValidation_U {
    }
 
    private static int listChecking(String email, String username, String password, String action, ArrayList<User> list){
-      boolean isThereNext = (list.size() == 2);
+      boolean isThereNext = (list.size() == 3);
       boolean canSignUp = true;
 
       if (!list.isEmpty()) {
@@ -104,11 +96,11 @@ public class DataDBValidation_U {
    }
    
    private static String SQLquery(int attempt){
-      String query = "SELECT * FROM Users LIMIT 2 OFFSET " + setOFFSETValue(attempt) + ";";
+      String query = "SELECT * FROM Users LIMIT 3 OFFSET " + setOFFSETValue(attempt) + ";";
       return query;
    }
 
    private static int setOFFSETValue(int attempt){
-      return (attempt * 2) - 2;
+      return (attempt * 3) - 3;
    }
 }

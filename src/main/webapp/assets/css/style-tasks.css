@@ -16,6 +16,11 @@ body {
     
 }
 
+.task-data-background {
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
 
 .top-bar {
     position: fixed;
@@ -185,7 +190,7 @@ header .icons button:hover {
     background-color: #536dfe;
 }
 
-.form-background {
+.form-background, .task-data-background {
     width:100%;
     height:100%;
     background-color: #2c2c2c5e;
@@ -193,31 +198,42 @@ header .icons button:hover {
     z-index: 10;
 }
 
-.form-addTask{
+.form-addTask, #form-EditTask{
     position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background-color: #2e2e2e83;
+    background-color: #2e2e2ee5;
     width:350px;
     height:fit-content;
     padding:20px;
     border-radius:15px;
 }
 
-.form-container{
+.form-container, .task-data__container{
     display:flex;
     flex-direction: column;
+}
+
+.task-data__container{
+    gap:30px
+}
+
+.form-container{
     gap:35px
 }
 
 .input-label{
     display: flex;
     flex-direction:column;
+    margin-bottom: 12px;
+}
+
+.form-container .input-label {
     gap:12px
 }
 
-.input-label input {
+.input-label input, select {
     height:35px;
     outline:none;
     border:none;
@@ -227,7 +243,7 @@ header .icons button:hover {
     padding:5px;
 }
 
-#submit-button{
+#submit-button, #submit-button_ETD{
     border:none;
     background-color:#3f3f3f;
     height:43px;
@@ -240,6 +256,11 @@ header .icons button:hover {
     width:100%;
     display:flex;
     justify-content:center;
+    margin-top:80px;
+}
+
+.btn-remove-container {
+    margin-bottom:15px
 }
 
 .btn-remove{
@@ -258,3 +279,18 @@ header .icons button:hover {
 .invisible{
     display:none;
 }
+
+option {
+    background-color: #262626; 
+    backdrop-filter: blur(5px);
+    border:none
+}
+
+.menu-icon {
+    background-color: #b3b3b300;
+    width:30px;
+    height:30px;
+    border:none
+}
+
+
