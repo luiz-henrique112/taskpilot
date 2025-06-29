@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html lang="en">
    <head>
-      <title>TaskPilot Sign In</title>
+      <title>Sign In</title>
       <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Inter:wght@400&family=Poppins:wght@400&display=swap" rel="stylesheet">
       <link href="${pageContext.request.contextPath}/assets/css/style-register.css" rel="stylesheet">
    </head>

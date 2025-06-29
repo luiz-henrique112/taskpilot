@@ -1,20 +1,23 @@
 document.addEventListener("DOMContentLoaded", function () {
-   let btn_rem = document.getElementById("btn-remove-form");
-   let btn_rem_ETD = document.getElementById("btn-remove-form-ETD");
+   let btnREM = document.getElementById("btn-remove-form");
+   let btnREM_ETD = document.getElementById("btn-remove-form-ETD");
    let btn_plus = document.getElementById("btn-plus");
+   let btn_settings = document.getElementById("settings");
    let form_background = document.getElementById("form-background");
    let form_ETD_background = document.getElementById("ETD_background");
-   let form_ETD = document.getElementById("form-EditTask")
+   let settings_background = document.getElementById("settings-background")
+   let btnREM_settings = document.getElementById("btn-remove-settings")
    let taskID_inputValue = document.getElementById("taskID")
    let menu_icon = document.querySelectorAll(".menu-icon")
    let submit_button = document.getElementById("submit-button");
    let submit_button_ETD = document.getElementById("submit-button_ETD");
+   let submit_button_DT = document.getElementById("submit-button_DT");
    let term_input = document.getElementById("term-input")
    let input_name = document.getElementById("input_name");
    let input_desc = document.getElementById("input_desc");
    let input_term = document.getElementById("input_term");
-   let input_status = document.getElementById("input_status");
-   let list = document.getElementById("list")
+   let actionInput =document.getElementById("actionInput")
+
    let taskID;
 
    
@@ -22,12 +25,20 @@ document.addEventListener("DOMContentLoaded", function () {
       form_background.classList.remove("invisible");
    });
 
-   btn_rem.addEventListener('click', () => {
+   btn_settings.addEventListener('click', () => {
+      settings_background.classList.remove("invisible");
+   });
+
+   btnREM.addEventListener('click', () => {
       form_background.classList.add("invisible");
    });
 
-   btn_rem_ETD.addEventListener('click', () => {
+   btnREM_ETD.addEventListener('click', () => {
       form_ETD_background.classList.add("invisible");
+   });
+
+   btnREM_settings.addEventListener('click', () => {
+      settings_background.classList.add("invisible");
    });
 
    btn_plus.addEventListener('click', () => {
@@ -46,6 +57,10 @@ document.addEventListener("DOMContentLoaded", function () {
       },100)
    });
    
+   submit_button_DT.addEventListener('click', () => {
+         actionInput.value = "delete-task"
+   });
+   
    let today = new Date().toISOString().split("T")[0];
    term_input.value = today;
 
@@ -59,7 +74,7 @@ document.addEventListener("DOMContentLoaded", function () {
          let name_txt;
          let desc_txt;
          let term_txt;
-         let status_txt;
+         
 
          taskData_texts = task_div_container.children
          
@@ -78,6 +93,7 @@ document.addEventListener("DOMContentLoaded", function () {
          }
          let dataList = JSON.stringify(PRI_list);
          list.value = dataList;
+         talvez eu use isso dps
          */
 
          input_name.value = name_txt;

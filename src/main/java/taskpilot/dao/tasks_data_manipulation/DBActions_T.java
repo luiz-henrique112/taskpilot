@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -32,13 +33,11 @@ public class DBActions_T {
 
          switch (action) {
          case "CREATE" -> {
-            String userID_STR = (String) session.getAttribute("current_user_id");
-            int userID = Integer.parseInt(userID_STR);
 
             stmt.setString(1, name);
             stmt.setString(2, description);
             stmt.setString(3, term);
-            stmt.setInt(4, userID);
+            stmt.setInt(4, ID);
             stmt.executeUpdate();
          }
          
@@ -66,6 +65,11 @@ public class DBActions_T {
             stmt.setInt(5, ID);
             stmt.executeUpdate();
          }
+
+         case "DELETE" -> {
+            stmt.setInt(1, ID);
+            stmt.executeUpdate();
+         }
          
          default -> {
             }
@@ -83,8 +87,11 @@ public class DBActions_T {
                               HttpServletRequest request) throws ServletException, IOException {
       String command = "INSERT INTO Tasks (name, description, term, userID) VALUES (?,?,?,?);";
       String action = "CREATE";
+      HttpSession session = request.getSession();
+      Map<String, String> current_userData = get_currentUserList(session);
+      int userID = Integer.parseInt(current_userData.get("_id"));
       
-      return executeDBCommand(action, command, name, description, term, status, 0, request);
+      return executeDBCommand(action, command, name, description, term, status, userID, request);
    }
 
     
@@ -100,7 +107,6 @@ public class DBActions_T {
                               String description, 
                               String term, 
                               String status,
-                              HashMap<String, String> list,
                               int taskID,
                               HttpServletRequest request
                               ) throws ServletException, IOException{
@@ -111,7 +117,13 @@ public class DBActions_T {
       return executeDBCommand(action, command, name, description, term, status, taskID, request);
    }
    
-   public static boolean DELETE(){
-      return true;
+   public static boolean DELETE(int ID, HttpServletRequest request) throws ServletException, IOException{
+      String action = "DELETE";
+      String command = "DELETE from Tasks WHERE taskID = ?;";
+      return executeDBCommand(action, command, "", "", "", "", ID, request);
+   }
+
+   private static Map<String, String> get_currentUserList(HttpSession session){
+      return (Map<String, String>) session.getAttribute("current_user");
    }
 }

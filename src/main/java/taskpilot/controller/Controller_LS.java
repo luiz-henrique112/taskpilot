@@ -11,9 +11,9 @@ import taskpilot.dao.users_data_manipulation.DataDBValidation_U;
 import taskpilot.utils.DataFormatValidation;
 
 public class Controller_LS extends HttpServlet {  
-   public static DataFormatValidation dataValidation = new DataFormatValidation();
-   public static DataDBValidation_U DBvalidation = new DataDBValidation_U();
-   public static DBActions_U DBactions = new DBActions_U();
+   private static DataFormatValidation dataValidation = new DataFormatValidation();
+   private static DataDBValidation_U DBvalidation = new DataDBValidation_U();
+   private static DBActions_U DBactions = new DBActions_U();
 
    @Override
    public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

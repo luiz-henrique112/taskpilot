@@ -3,23 +3,22 @@ body {
     font-family: 'Montserrat', sans-serif;
     background-color: #121212;
     color: #ffffff;
-    overflow: hidden;
-    display:flex;
-    
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
 }
 
 .container {
     width: 100%;
-    height: 100vh;
     display: flex;
     flex-direction: column;
-    
+    flex-grow: 1;
 }
 
 .task-data-background {
-    display:flex;
-    align-items:center;
-    justify-content:center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .top-bar {
@@ -30,8 +29,8 @@ body {
     justify-content: space-between;
     align-items: center;
     background-color: #353535af;
-    padding: 10px ;
-    margin:10px;
+    padding: 10px;
+    margin: 10px;
     backdrop-filter: blur(12px);
     z-index: 10;
     border-radius: 15px;
@@ -42,7 +41,7 @@ body {
     border: none;
     border-radius: 50%;
     width: 40px;
-    padding:10px;
+    padding: 10px;
     height: 40px;
     display: flex;
     justify-content: center;
@@ -57,23 +56,25 @@ body {
     background-color: #292929;
 }
 
+a{
+    text-decoration: none;
+}
+
 .top-btns {
     transform: translateX(-45px);
 }
 
-
 header {
-    position: fixed;
-    top: 50px;
-    width: 100%;
+    position:relative;
+    top: 80px;
     background-color: #121212;
     z-index: 9;
     padding: 15px 20px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    height: 70px; 
-    margin-top: 40px;
+    height: 70px;
+    margin-top: 10px;
 }
 
 header h1 {
@@ -107,15 +108,12 @@ header .icons button:hover {
 }
 
 .task-list {
-    margin-top: 130px; 
+    margin-top: 130px;
     padding: 20px;
-    overflow-y: auto;
-    flex: 1;
     display: flex;
     flex-direction: column;
     gap: 15px;
-    position:fixed;
-    transform:translateY(40px);
+    flex-grow: 1;
 }
 
 .task-card {
@@ -126,6 +124,9 @@ header .icons button:hover {
     flex-direction: column;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
     position: relative;
+    width: fit-content;
+    min-width: 350px;
+    max-width: calc(100vw -10px);
 }
 
 .task-card .name {
@@ -168,7 +169,6 @@ header .icons button:hover {
     color: #ffffff;
 }
 
-
 .add-task-btn {
     position: fixed;
     bottom: 20px;
@@ -190,107 +190,341 @@ header .icons button:hover {
     background-color: #536dfe;
 }
 
-.form-background, .task-data-background {
-    width:100%;
-    height:100%;
+.form-background, .task-data-background, .user-data-background {
+    width: 100%;
+    height: 100%;
     background-color: #2c2c2c5e;
-    backdrop-filter:blur(5px);
+    backdrop-filter: blur(5px);
     z-index: 10;
+    position: fixed;
+    top: 0;
+    left: 0;
 }
 
-.form-addTask, #form-EditTask{
+.form-addTask, #form-EditTask, .form-settings {
     position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     background-color: #2e2e2ee5;
-    width:350px;
-    height:fit-content;
-    padding:20px;
-    border-radius:15px;
+    width: 90%;
+    max-width: 350px;
+    padding: 20px;
+    border-radius: 15px;
 }
 
-.form-container, .task-data__container{
-    display:flex;
+.form-container, .task-data__container {
+    display: flex;
     flex-direction: column;
 }
 
-.task-data__container{
-    gap:30px
+.task-data__container {
+    gap: 30px;
 }
 
-.form-container{
-    gap:35px
+.form-container {
+    gap: 35px;
 }
 
-.input-label{
+.input-label {
     display: flex;
-    flex-direction:column;
+    flex-direction: column;
     margin-bottom: 12px;
-}
-
-.form-container .input-label {
-    gap:12px
+    gap: 12px;
 }
 
 .input-label input, select {
-    height:35px;
-    outline:none;
-    border:none;
-    border-radius:5px;
+    height: 35px;
+    outline: none;
+    border: none;
+    border-radius: 5px;
     background-color: #cccccc2c;
-    color:white;
-    padding:5px;
+    color: white;
+    padding: 5px;
 }
 
-#submit-button, #submit-button_ETD{
-    border:none;
-    background-color:#3f3f3f;
-    height:43px;
-    width:130px;
-    color:white;
-    border-radius:10px
+#submit-button, #submit-button_ETD, #submit-button_DT {
+    border: none;
+    background-color: #3f3f3f;
+    height: 43px;
+    width: 130px;
+    color: white;
+    border-radius: 10px;
 }
 
-.btn{
-    width:100%;
-    display:flex;
-    justify-content:center;
-    margin-top:80px;
+.btn {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 80px;
+    gap:20px;
 }
 
 .btn-remove-container {
-    margin-bottom:15px
+    margin-bottom: 15px;
 }
 
-.btn-remove{
-    width:40px;
-    height:40px;
-    color:white;
+.btn-remove {
+    width: 40px;
+    height: 40px;
+    color: white;
     background-color: #262626;
-    border:none;
-    float:right;
+    border: none;
+    float: right;
 }
 
-#form-upper-text{
-    font-size:x-large;
+#form-upper-text {
+    font-size: x-large;
 }
 
-.invisible{
-    display:none;
+.invisible {
+    display: none;
 }
 
 option {
-    background-color: #262626; 
+    background-color: #262626;
     backdrop-filter: blur(5px);
-    border:none
+    border: none;
 }
 
-.menu-icon {
-    background-color: #b3b3b300;
-    width:30px;
-    height:30px;
-    border:none
+.menu-icon, .delete-icon {
+    background-color: transparent;
+    width: 30px;
+    height: 30px;
+    border: none;
 }
+
+/* Responsividade para tablets */
+/* Responsividade para tablets */
+/* Tablets: até 768px */
+/* 🔄 Responsividade para telas médias (até 768px) */
+/* Tablets (médio) */
+@media (max-width: 768px) {
+  .top-bar {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 2px;
+    width: 95%;
+    margin: 8px auto;
+    padding: 8px;
+  }
+
+  .top-bar .logout-btn {
+    width: 35px;
+    height: 35px;
+    font-size: 1.1rem;
+  }
+
+  header {
+    flex-direction: row;
+    align-items: flex-start;
+    height: auto;
+    padding: 12px 16px;
+    gap: 8px;
+  }
+
+  header h1 {
+    font-size: 1.5rem;
+  }
+
+  .icons {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .icons button {
+    width: 44px;
+    height: 44px;
+    font-size: 1.2rem;
+  }
+
+  .task-list {
+    margin-top: 140px;
+    padding: 15px;
+  }
+
+  .task-card {
+    
+    padding: 12px;
+  }
+
+  .task-card .name {
+    font-size: 1.1rem;
+  }
+
+  .task-card .description,
+  .task-card .term,
+  .task-card .status {
+    font-size: 0.9rem;
+  }
+
+  .menu-icon {
+    font-size: 1.1rem;
+  }
+
+  .add-task-btn {
+    width: 55px;
+    height: 55px;
+    font-size: 1.8rem;
+  }
+
+  .form-addTask,
+  #form-EditTask {
+    width: 92%;
+    padding: 18px;
+  }
+
+  #submit-button,
+  #submit-button_ETD {
+    width: 100%;
+  }
+
+  .input-label input,
+  .input-label select {
+    height: 34px;
+  }
+}
+
+/* Celulares grandes */
+@media (max-width: 480px) {
+  .top-bar {
+    width: 94%;
+    padding: 6px;
+    gap: 10px;
+  }
+
+  .top-bar .logout-btn {
+    width: 30px;
+    height: 30px;
+    font-size: 1rem;
+  }
+
+  header h1 {
+    font-size: 1.3rem;
+  }
+
+  .icons button {
+    width: 38px;
+    height: 38px;
+    font-size: 1rem;
+  }
+
+  .task-list {
+    padding: 10px;
+    margin-top: 130px;
+    gap: 10px;
+  }
+
+  .task-card {
+    padding: 10px;
+    max-width: calc(100vw -10px);
+  }
+
+  .task-card .name {
+    font-size: 1rem;
+  }
+
+  .task-card .description,
+  .task-card .term,
+  .task-card .status {
+    font-size: 0.8rem;
+  }
+
+  .add-task-btn {
+    width: 48px;
+    height: 48px;
+    font-size: 1.6rem;
+    bottom: 15px;
+    right: 15px;
+  }
+
+  .form-addTask,
+  #form-EditTask {
+    width: 95%;
+    padding: 15px;
+  }
+
+  .input-label input,
+  .input-label select {
+    height: 32px;
+    font-size: 0.9rem;
+  }
+
+  #submit-button,
+  #submit-button_ETD {
+    height: 40px;
+    font-size: 0.9rem;
+  }
+
+  .btn-remove {
+    width: 28px;
+    height: 28px;
+    font-size: 0.9rem;
+  }
+
+  .menu-icon {
+    font-size: 1rem;
+  }
+}
+
+/* Celulares muito pequenos (tipo 320px) */
+@media (max-width: 360px) {
+  header h1 {
+    font-size: 1.1rem;
+  }
+
+  .top-bar {
+    padding: 4px;
+    gap: 8px;
+  }
+
+  .top-bar .logout-btn {
+    width: 28px;
+    height: 28px;
+    font-size: 0.9rem;
+  }
+
+  .icons button {
+    width: 34px;
+    height: 34px;
+    font-size: 0.9rem;
+  }
+
+  .task-card .name {
+    font-size: 0.95rem;
+  }
+
+  .task-card .description,
+  .task-card .term,
+  .task-card .status {
+    font-size: 0.75rem;
+  }
+
+  .add-task-btn {
+    width: 45px;
+    height: 45px;
+    font-size: 1.5rem;
+  }
+
+  .form-addTask,
+  #form-EditTask {
+    width: 97%;
+    padding: 12px;
+  }
+
+  .input-label input,
+  .input-label select {
+    height: 30px;
+    font-size: 0.85rem;
+  }
+
+  #submit-button,
+  #submit-button_ETD {
+    height: 36px;
+    font-size: 0.85rem;
+  }
+}
+
+
 
 

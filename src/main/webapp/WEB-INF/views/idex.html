@@ -13,8 +13,8 @@
       <div class="container">
          
          <div class="top-bar">
-            <div>Hello, ${sessionScope.current_username}</div>
-            <button class="logout-btn" title="Logout">⎋</button>
+            <p>Hello, ${sessionScope.current_username}</p>
+            <a href="taskpilot/login"><button class="logout-btn" title="Logout" href="">⎋</button></a>
          </div>
 
          <header>
@@ -22,7 +22,7 @@
             <div class="icons">
                <button title="Add Task" class="top-btns" id="btn-plus">+</button>
                <button title="Statistics" class="top-btns">&#128202;</button>
-               <button title="Settings" class="top-btns">&#9881;</button>
+               <button title="Settings" class="top-btns" id="settings">&#9881;</button>
             </div>
          </header>
 
@@ -57,36 +57,28 @@
             </form>
          </div>
 
-         <div class="task-list" id="23">
-            <div class="task-card">
-               <p class="status">Pending</p>
-               <p class="name">Task Name</p>
-               <p class="description">Description: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-               <p class="term">Term: DD/MM/YYYY</p>
-               <button class="menu-icon">⋮</button>
-           </div>
-           <div class="task-card">
-               <p class="status">Completed</p>
-               <p class="name">Task Name</p>
-               <p class="description">Description: Consectetur adipiscing elit.</p>
-               <p class="term">Term: DD/MM/YYYY</p>
-               <button class="menu-icon">⋮</button>
-           </div>
-           <div class="task-card">
-               <p class="status">In Progress</p>
-               <p class="name">Task Name</p>
-               <p class="description">Description: Sed do eiusmod tempor.</p>
-               <p class="term">Term: DD/MM/YYYY</p>
-               <button class="menu-icon">⋮</button>
-           </div>
-         </div>
+         <div class="task-list">
+               
+                  <div class="task-card" id="${task.taskID}">
+                     <p class="status">${task.status}</p>
+                     <p class="name">${task.name}</p>
+                     <p class="description">${task.description}</p>
+                     <p class="term">${task.term}</p>
 
-         <div class="task-data-background invisible" id="ETD_background">
+                     
+                     
+
+                     <button class="menu-icon" title="Options">⋮</button>
+                  </div>
+               
+            </div>
+
+         <div class="task-data-background " id="ETD_background">
             <form action="/taskpilot/Controller_T" id="form-EditTask">
                <div class="task-data__container" >
                   <input type="hidden" name="action" value="change_task-data">
                   <input type="hidden" name="taskID" id="taskID">
-                  <input type="hidden" name="list" id="list">
+                  
 
                   <div class="btn-remove-container">
                      <div class="fa fa-remove fa-2x btn-remove" id="btn-remove-form-ETD"></div>
@@ -122,12 +114,44 @@
                      </select>
 
                      <div class="btn">
-                        <button type="submit" id="submit-button_ETD">OK</button>
+                           <button type="submit" id="submit-button_ETD">Save Changes</button>
+                           <button type="submit" id="submit-button_DT">Delete task</button>
                      </div>
                   </div>
                </div>
             </form>
          </div>
+
+         <div class="user-data-background invisible" id="settings-background">
+            <form action="/taskpilot/UserController" class="form-settings">
+               <div class="form-container">
+                  <input type="hidden" name="action" value="edit_user">
+
+                  <div class="btn-remove-container">
+                     <div class="fa fa-remove fa-2x btn-remove" id="btn-remove-settings"></div>
+                     <p class="form-upper-text">Edit your profile</p>
+                  </div>
+
+                  <div class="input-label">
+                     <label for="username">Username:</label>
+                     <input type="text" name="username">
+                  </div>
+                  <div class="input-label">
+                     <label for="email">Email:</label>
+                     <input type="email" name="email" >
+                  </div>
+                  <div class="input-label">
+                     <label for="password">New Password:</label>
+                     <input type="password" name="password">
+                  </div>
+
+                  <div class="btn">
+                  <button type="submit" id="submit-button">Save Changes</button>
+                  </div>
+               </div>
+            </form>
+         </div>
+
       </div>
 
       <script src="/src/main/webapp/assets/js/script-task.js"></script>

@@ -14,8 +14,8 @@
       <div class="container">
          <!-- Barra superior fixa -->
          <div class="top-bar">
-            <div>Hello, ${sessionScope.current_username}</div>
-            <button class="logout-btn" title="Logout">⎋</button>
+            <div>Hello, ${sessionScope.current_user["_username"]}</div>
+            <a href="${pageContext.request.contextPath}/login"><button class="logout-btn" title="Logout">⎋</button></a>
          </div>
 
          <header>
@@ -23,7 +23,7 @@
             <div class="icons">
                <button title="Add Task" class="top-btns" id="btn-plus">+</button>
                <button title="Statistics" class="top-btns">&#128202;</button>
-               <button title="Settings" class="top-btns">&#9881;</button>
+               <button title="Settings" class="top-btns" id="settings">&#9881;</button>
             </div>
          </header>
 
@@ -65,16 +65,22 @@
                      <p class="name">${task.name}</p>
                      <p class="description">${task.description}</p>
                      <p class="term">${task.term}</p>
+
                      
-                     <button class="menu-icon">⋮</button>
+                     <button class="delete-icon" title="Delete Task" taskid="${task.taskID}">
+                        <i class="fa fa-trash"></i>
+                     </button>
+
+                     <button class="menu-icon" title="Options">⋮</button>
                   </div>
                </c:forEach>
             </div>
 
+
             <div class="task-data-background invisible" id="ETD_background">
                <form action="${pageContext.request.contextPath}/Controller_T" class="form-EditTask" id="form-EditTask" method="post">
                   <div class="task-data__container" >
-                     <input type="hidden" name="action" value="change-task__data">
+                     <input type="hidden" name="action" value="edit-task__data" id="actionInput">
                      <input type="hidden" name="taskID" id="taskID">
                      <input type="hidden" name="list" id="list">
    
@@ -112,7 +118,8 @@
                         </select>
    
                         <div class="btn">
-                           <button type="submit" id="submit-button_ETD">OK</button>
+                           <button type="submit" id="submit-button_ETD">Save Changes</button>
+                           <button type="submit" id="submit-button_DT">Delete task</button>
                         </div>
                      </div>
                   </div>
@@ -120,15 +127,47 @@
             </div>
          </div>
       </div>
-      
+
+         <div class="user-data-background invisible" id="settings-background">
+            <form action="${pageContext.request.contextPath}/Controller_T" class="form-settings" method="post">
+               <div class="form-container">
+                  <input type="hidden" name="action" value="edit-user_data">
+
+                  <div class="btn-remove-container">
+                     <div class="fa fa-remove fa-2x btn-remove" id="btn-remove-settings"></div>
+                     <p class="form-upper-text">Edit your profile</p>
+                  </div>
+                  
+                  <div class="input-label">
+                     <label for="email">Email:</label>
+                     <input type="email" name="email" >
+                  </div>
+                  <div class="input-label">
+                     <label for="username">Username:</label>
+                     <input type="text" name="username">
+                  </div>
+                  <div class="input-label">
+                     <label for="password">New Password:</label>
+                     <input type="password" name="password">
+                  </div>
+
+                  <div class="btn">
+                  <button type="submit" id="submit-button-UDE">Save Changes</button>
+                  </div>
+               </div>
+            </form>
+         </div>
+
+      </div>
+
       <script src="${pageContext.request.contextPath}/assets/js/script-task.js"></script>
       <%
-         String message = (String) request.getParameter("message");
-         if (message != null) {
+         String errorMessage = (String) request.getParameter("message");
+         if (errorMessage != null) {
       %>
          <script>
             window.onload = function () {
-               alert("<%= message %>");
+               alert("<%= errorMessage %>");
             };
          </script>
       <%
@@ -136,4 +175,3 @@
       %>
    </body>
 </html>
-
