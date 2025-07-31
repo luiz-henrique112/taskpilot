@@ -17,7 +17,8 @@ import taskpilot.model.Task;
 
 public class DBActions_U {
    
-   public static String message;
+   public static String _message;
+   public static String _password;
 
    public static boolean executeDBCommand(String action, 
                                           String command, 
@@ -59,6 +60,7 @@ public class DBActions_U {
                   session.setAttribute("current_user", current_user);  
                   session.setAttribute("taskList", list_T); 
                }
+
                return true;
             }
 
@@ -73,14 +75,24 @@ public class DBActions_U {
             case "DELETE" -> {
                stmt.setInt(1, ID);
             }
+
+            case "SELECT" -> {
+               stmt.setInt(1, ID);
+               ResultSet rs = stmt.executeQuery();
+
+               while(rs.next()) {
+                  _password = rs.getString("password");
+               }
+            }
             default -> {
             }
          }
+
       return true;
       } catch (SQLException e) {
          e.printStackTrace();
 
-         message = e.getMessage();
+         _message = e.getMessage();
          return false;
       }
    }
@@ -91,14 +103,15 @@ public class DBActions_U {
                               HttpServletRequest request) throws ServletException, IOException {
       String command = "INSERT INTO Users (email, password, username) VALUES (?,?,?);";
       String action = "CREATE";
+
       return executeDBCommand(action, command, email, username, password, 0, request);
-      
-   }
+      }
 
-   public static boolean DELETE(String email, String username, String password, HttpSession session) throws ServletException, IOException {
+   public static boolean SELECT(int ID, HttpServletRequest request) throws ServletException, IOException {
+      String action = "SELECT";
+      String command = "SELECT * from Users WHERE id = ?;";
 
-      boolean realizedSuccessfully = false;
-      return realizedSuccessfully;
+      return executeDBCommand(action, command, "", "", "", ID, request);
    }
 
    public static boolean UPDATE(String email_, 
@@ -106,7 +119,6 @@ public class DBActions_U {
                                  String password_, 
                                  HttpSession session,
                                  HttpServletRequest request) throws ServletException, IOException {
-                                    
       Map<String, String> current_user = get_currentUserList(session);
       String email = email_.equals("") ? current_user.get("_email") : email_;
       String username = username_.equals("") ? current_user.get("_username") : username_;
@@ -132,6 +144,10 @@ public class DBActions_U {
    }
 
    public static String get_message(){
-      return message;
+      return _message;
+   }
+
+   public static String get_password() {
+      return _password;
    }
 }

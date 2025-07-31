@@ -23,22 +23,12 @@
             </div>
             <div class="buttons">
                <button type="submit" class="button" id="signIn">Sign In</button>
-               <a href="${pageContext.request.contextPath}/login" id="loginLink">Do you already have an account?</a>
+               <div class="links">
+                  <a href="${pageContext.request.contextPath}/login" id="loginLink">Do you already have an account?</a>
+                  <a href="${pageContext.request.contextPath}/redefinition" id="redefinitionLink">Forgot your password?</a>
+               </div>
             </div>
          </form>
       </div>
-
-      <%
-         String errorMessage = (String) request.getParameter("error");
-         if (errorMessage != null) {
-      %>
-         <script>
-            window.onload = function () {
-               alert("<%= errorMessage %>");
-            };
-         </script>
-      <%
-         }
-      %>
    </body>
 </html>

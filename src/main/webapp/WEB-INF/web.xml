@@ -24,6 +24,11 @@
     </servlet-mapping>
 
     <servlet-mapping>
+        <servlet-name>Controller_LS</servlet-name>
+        <url-pattern>/redefinition</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
         <servlet-name>Controller_T</servlet-name>
         <url-pattern>/tasks</url-pattern>
     </servlet-mapping>

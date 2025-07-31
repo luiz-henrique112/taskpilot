@@ -76,6 +76,7 @@ public class DataDBValidation_U {
                            return CHECK_SUCCESS;
                      } 
                   }
+
                case "signIn" -> {
                      if(email.equals(user.getEmail()) ||
                         username.equals(user.getUsername())){
@@ -89,9 +90,11 @@ public class DataDBValidation_U {
             }
          }
       }
+
       if (action.equals("signIn") && canSignUp && !isThereNext) {
          return CHECK_SUCCESS; 
       }
+
       return isThereNext? CHECK_NO_RESULT : CHECK_INVALID;
    }
    

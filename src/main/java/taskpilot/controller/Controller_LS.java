@@ -10,6 +10,7 @@ import taskpilot.dao.users_data_manipulation.DBActions_U;
 import taskpilot.dao.users_data_manipulation.DataDBValidation_U;
 import taskpilot.utils.DataFormatValidation;
 
+
 public class Controller_LS extends HttpServlet {  
    private static DataFormatValidation dataValidation = new DataFormatValidation();
    private static DataDBValidation_U DBvalidation = new DataDBValidation_U();
@@ -32,7 +33,7 @@ public class Controller_LS extends HttpServlet {
       String action = request.getParameter("action");
       String username = request.getParameter("username");
       String password = request.getParameter("password");
-      String email = request.getParameter("email");  
+      String email = request.getParameter("email");
 
       switch (action) {
          case "signIn" -> {
@@ -58,6 +59,7 @@ public class Controller_LS extends HttpServlet {
                response.sendRedirect("/taskpilot/signIn?error=" + java.net.URLEncoder.encode(errorMessage, "UTF-8"));
             }
          }
+
          case "login" -> {
             if (dataValidation.validation(email, username, password)) {
                if (DBvalidation.isValid(email, username, password, action)) {
@@ -76,6 +78,7 @@ public class Controller_LS extends HttpServlet {
                response.sendRedirect("/taskpilot/signIn?error=" + java.net.URLEncoder.encode(errorMessage, "UTF-8"));
             }
          }
+
          default -> {
          } 
       }

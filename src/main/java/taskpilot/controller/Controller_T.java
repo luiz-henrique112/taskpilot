@@ -28,7 +28,7 @@ public class Controller_T extends HttpServlet {
       if (session != null) {
          session.setMaxInactiveInterval(40 * 3600); 
       } else {
-         response.sendRedirect("/taskpilot/login");
+         response.sendRedirect("/taskpilot/login?message=session+expired");
       }
       
       switch (screen) {
@@ -51,16 +51,10 @@ public class Controller_T extends HttpServlet {
       String username = request.getParameter("username");
       String password = request.getParameter("password");
       HttpSession session = request.getSession();
-      /*
-      Gson gson = new Gson();
-      HashMap<String, String> list_U = gson.fromJson(jsonList, new TypeToken<HashMap<String, String>>(){}.getType());
-      */
-
       
       if (session != null) {
          switch (action) {
             case "add_task" -> {
-
                if (DBAction.CREATE(name, description, term, status, request)){
                   Map<String, String> current_userData = get_currentUserList(session);
                   int userID = Integer.parseInt(current_userData.get("_id"));
@@ -72,7 +66,6 @@ public class Controller_T extends HttpServlet {
             }
 
             case "edit-task__data" -> {
-               
                if(DBAction.UPDATE(name, description, term, status, Integer.parseInt(task_ID), request)){
                   Map<String, String> current_userData = get_currentUserList(session);
                   int userID = Integer.parseInt(current_userData.get("_id"));
@@ -117,12 +110,26 @@ public class Controller_T extends HttpServlet {
                }
             }
 
+            case "verify-password" -> {
+               Map<String, String> current_user = get_currentUserList(session);
+               if(DBActionU.SELECT(Integer.parseInt(current_user.get("_id")), request)){
+                  String _password = DBActionU.get_password();
+
+                  if (password.equals(_password)) {
+                     response.sendRedirect("/taskpilot/tasks?isPasswordValid=true");
+                  } else {
+                     response.sendRedirect("/taskpilot/tasks?message=Oops!20%something20%went20%wrong");
+                  }
+               } else {
+                  response.sendRedirect("/taskpilot/tasks?message=Oops!20%something20%went20%wrong");
+               }
+            }
          
             default -> {
             }
          }
       } else {
-         response.sendRedirect("/taskpilot/login");
+         response.sendRedirect("/taskpilot/login?message=session+expired");
       }
    }
 
@@ -138,7 +145,7 @@ public class Controller_T extends HttpServlet {
             session.setAttribute("taskList", list);                  
             response.sendRedirect("/taskpilot/tasks?message=" + java.net.URLEncoder.encode(message, "UTF-8"));
       } catch (ServletException | IOException | SQLException e) {                  
-         response.sendRedirect("/taskpilot/tasks?message=Oops!20%something20%went20%wrong;");
+         response.sendRedirect("/taskpilot/tasks?message=Oops!20%something20%went20%wrong");
          e.printStackTrace();
       }
    }

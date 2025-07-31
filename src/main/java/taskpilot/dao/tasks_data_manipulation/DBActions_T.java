@@ -33,7 +33,6 @@ public class DBActions_T {
 
          switch (action) {
          case "CREATE" -> {
-
             stmt.setString(1, name);
             stmt.setString(2, description);
             stmt.setString(3, term);
@@ -94,8 +93,6 @@ public class DBActions_T {
       return executeDBCommand(action, command, name, description, term, status, userID, request);
    }
 
-    
-
    public ArrayList<Task> SELECT(HttpServletRequest request,  int user_ID) throws ServletException, IOException, SQLException{
       String command = "SELECT * FROM Tasks WHERE UserID = ?";
       String action = "SELECT";
@@ -110,7 +107,6 @@ public class DBActions_T {
                               int taskID,
                               HttpServletRequest request
                               ) throws ServletException, IOException{
-
       String command = "UPDATE Tasks SET name = ?, description = ?, term = ?, status = ? WHERE taskID = ?";
       String action = "UPDATE";
 

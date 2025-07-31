@@ -16,7 +16,10 @@ body {
 }
 
 .buttons{
-    flex-direction: row !important;
+    display:flex;
+    flex-direction: column !important;
+    align-items: center;
+    gap:25px
 }
 
 /* Container */
@@ -25,6 +28,13 @@ body {
     width: 100%;
     max-width: 400px;
     align-items:center;
+}
+
+.links{
+    gap:20px
+}
+.links a{
+    color:white
 }
 
 /* Title */
@@ -90,7 +100,7 @@ p {
     margin-top: 40px;
 }
 
-#loginLink, #signInLink {
+#loginLink, #signInLink, #redefinitionLink{
     color: #e1e1e1;
     font-size: 0.8em;
 }

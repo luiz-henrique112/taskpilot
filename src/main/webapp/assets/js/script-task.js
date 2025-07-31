@@ -1,32 +1,32 @@
 document.addEventListener("DOMContentLoaded", function () {
    let btnREM = document.getElementById("btn-remove-form");
    let btnREM_ETD = document.getElementById("btn-remove-form-ETD");
+   let btnREM_PV = document.getElementById("btn-remove-PV")
    let btn_plus = document.getElementById("btn-plus");
    let btn_settings = document.getElementById("settings");
    let form_background = document.getElementById("form-background");
    let form_ETD_background = document.getElementById("ETD_background");
    let settings_background = document.getElementById("settings-background")
+   let _PV_background = document.getElementById("password-verifyingBackground");
    let btnREM_settings = document.getElementById("btn-remove-settings")
    let taskID_inputValue = document.getElementById("taskID")
    let menu_icon = document.querySelectorAll(".menu-icon")
    let submit_button = document.getElementById("submit-button");
    let submit_button_ETD = document.getElementById("submit-button_ETD");
    let submit_button_DT = document.getElementById("submit-button_DT");
+   let submit_button_PV =document.getElementById("submit-button-PV")
    let term_input = document.getElementById("term-input")
    let input_name = document.getElementById("input_name");
    let input_desc = document.getElementById("input_desc");
    let input_term = document.getElementById("input_term");
-   let actionInput =document.getElementById("actionInput")
-
-   let taskID;
-
+   let actionInput = document.getElementById("actionInput")
    
    btn_plus.addEventListener('click', () => {
       form_background.classList.remove("invisible");
    });
 
    btn_settings.addEventListener('click', () => {
-      settings_background.classList.remove("invisible");
+      _PV_background.classList.remove("invisible");
    });
 
    btnREM.addEventListener('click', () => {
@@ -41,11 +41,20 @@ document.addEventListener("DOMContentLoaded", function () {
       settings_background.classList.add("invisible");
    });
 
+   btnREM_PV.addEventListener('click', () => {
+      _PV_background.classList.add("invisible");
+   })
+
    btn_plus.addEventListener('click', () => {
       form_background.classList.remove("invisible");
    });
 
    submit_button.addEventListener('click', () => {
+      setTimeout(()=>{
+         form_background.classList.add("invisible");
+      },100)
+   });
+   submit_button_PV.addEventListener('click', () => {
       setTimeout(()=>{
          form_background.classList.add("invisible");
       },100)
@@ -66,7 +75,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
    menu_icon.forEach((btn) => {
-      
       btn.addEventListener('click', () => {
          let task_div_container = btn.parentNode
          let TDC_ID = task_div_container.id
@@ -84,17 +92,6 @@ document.addEventListener("DOMContentLoaded", function () {
          
          taskID_inputValue.value =  "" + TDC_ID + "";
          form_ETD_background.classList.remove("invisible");
-
-         /*
-         let PRI_list = {
-            _name : name_txt,
-            _description : desc_txt,
-            _term : term_txt
-         }
-         let dataList = JSON.stringify(PRI_list);
-         list.value = dataList;
-         talvez eu use isso dps
-         */
 
          input_name.value = name_txt;
          input_desc.value = desc_txt;
