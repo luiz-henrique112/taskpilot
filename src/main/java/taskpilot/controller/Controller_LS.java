@@ -19,6 +19,7 @@ public class Controller_LS extends HttpServlet {
    @Override
    public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
       String screen = request.getServletPath();
+      String contextPath = request.getContextPath();
 
       switch (screen) {
          case "/login" -> request.getRequestDispatcher("/WEB-INF/views/login.jsp").forward(request, response);
@@ -28,59 +29,66 @@ public class Controller_LS extends HttpServlet {
       }
    }
    @SuppressWarnings("static-access")
-   @Override
+  @Override
    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+   
+      String contextPath = request.getContextPath(); 
+   
       String action = request.getParameter("action");
       String username = request.getParameter("username");
       String password = request.getParameter("password");
       String email = request.getParameter("email");
-
+   
       switch (action) {
+   
          case "signIn" -> {
             if (dataValidation.validation(email, username, password)) {
                if (DBvalidation.isValid(email, username, password, action)) {
                   if (DBactions.CREATE(email, username, password, request)) {
                      if (DBactions.setCurrentUser(email, username, password, request)) {
-                        response.sendRedirect("/taskpilot/tasks");
+   
+                        response.sendRedirect(contextPath + "/tasks");
+   
                      } else {
-                        String errorMessage ="An unexpected error occurred while processing the request. Please try again later.";
-                        response.sendRedirect("/taskpilot/signIn?error=" + java.net.URLEncoder.encode(errorMessage, "UTF-8"));
+                        String errorMessage = "An unexpected error occurred while processing the request. Please try again later.";
+                        response.sendRedirect(contextPath + "/signIn?error=" + java.net.URLEncoder.encode(errorMessage, "UTF-8"));
                      }
                   } else {
-                     String errorMessage ="Your data could not be registered. Try again later.";
-                     response.sendRedirect("/taskpilot/signIn?error=" + java.net.URLEncoder.encode(errorMessage, "UTF-8"));
+                     String errorMessage = "Your data could not be registered. Try again later.";
+                     response.sendRedirect(contextPath + "/signIn?error=" + java.net.URLEncoder.encode(errorMessage, "UTF-8"));
                   }
                } else {
                   String errorMessage = "Users with this E-mail or username already registered.";
-                  response.sendRedirect("/taskpilot/signIn?error=" + java.net.URLEncoder.encode(errorMessage, "UTF-8"));
+                  response.sendRedirect(contextPath + "/signIn?error=" + java.net.URLEncoder.encode(errorMessage, "UTF-8"));
                }
             } else {
                String errorMessage = "Make sure the email is in a valid format, the username is at least 4 characters long, and the password is at least 8 characters long.";
-               response.sendRedirect("/taskpilot/signIn?error=" + java.net.URLEncoder.encode(errorMessage, "UTF-8"));
+               response.sendRedirect(contextPath + "/signIn?error=" + java.net.URLEncoder.encode(errorMessage, "UTF-8"));
             }
          }
-
+   
          case "login" -> {
             if (dataValidation.validation(email, username, password)) {
                if (DBvalidation.isValid(email, username, password, action)) {
                   if (DBactions.setCurrentUser(email, username, password, request)) {
-                     response.sendRedirect("/taskpilot/tasks");
+   
+                     response.sendRedirect(contextPath + "/tasks");
+   
                   } else {
-                     String errorMessage ="An unexpected error occurred while processing the request. Please try again later.";
-                     response.sendRedirect("/taskpilot/signIn?error=" + java.net.URLEncoder.encode(errorMessage, "UTF-8"));
+                     String errorMessage = "An unexpected error occurred while processing the request. Please try again later.";
+                     response.sendRedirect(contextPath + "/signIn?error=" + java.net.URLEncoder.encode(errorMessage, "UTF-8"));
                   }
                } else {
                   String errorMessage = "No users with this data found.";
-                  response.sendRedirect("/taskpilot/login?error=" + java.net.URLEncoder.encode(errorMessage, "UTF-8"));
+                  response.sendRedirect(contextPath + "/login?error=" + java.net.URLEncoder.encode(errorMessage, "UTF-8"));
                }
             } else {
                String errorMessage = "Make sure the email is in a valid format, the username is at least 4 characters long, and the password is at least 8 characters long.";
-               response.sendRedirect("/taskpilot/signIn?error=" + java.net.URLEncoder.encode(errorMessage, "UTF-8"));
+               response.sendRedirect(contextPath + "/signIn?error=" + java.net.URLEncoder.encode(errorMessage, "UTF-8"));
             }
          }
-
-         default -> {
-         } 
+   
+         default -> { }
       }
    }
 }
