@@ -9,7 +9,7 @@
    <body>
       <div class="container">
          <p class="welcome-text">Welcome to</p>
-         <form action="/taskpilot/Controller_LS" method="post">
+         <form action="${pageContext.request.contextPath}/Controller_LS" method="post">
             <div class="container-center">
                <h1>TaskPilot</h1>
                <input type="hidden" name="action" value="signIn">
