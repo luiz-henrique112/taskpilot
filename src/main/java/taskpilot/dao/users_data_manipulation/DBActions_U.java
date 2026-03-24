@@ -101,7 +101,7 @@ public class DBActions_U {
                               String username, 
                               String password, 
                               HttpServletRequest request) throws ServletException, IOException {
-      String command = "INSERT INTO Users (email, password, username) VALUES (?,?,?);";
+      String command = "INSERT INTO users (email, password, username) VALUES (?,?,?);";
       String action = "CREATE";
 
       return executeDBCommand(action, command, email, username, password, 0, request);
@@ -109,7 +109,7 @@ public class DBActions_U {
 
    public static boolean SELECT(int ID, HttpServletRequest request) throws ServletException, IOException {
       String action = "SELECT";
-      String command = "SELECT * from Users WHERE id = ?;";
+      String command = "SELECT * from users WHERE id = ?;";
 
       return executeDBCommand(action, command, "", "", "", ID, request);
    }
@@ -124,7 +124,7 @@ public class DBActions_U {
       String username = username_.equals("") ? current_user.get("_username") : username_;
       String password = password_.equals("") ? current_user.get("_password") : password_;
 
-      String command = "UPDATE Users SET email = ?, password = ?, username = ? WHERE id = ?;";
+      String command = "UPDATE users SET email = ?, password = ?, username = ? WHERE id = ?;";
       String action = "UPDATE";
       
       return executeDBCommand(action, command, email, username, password, Integer.parseInt(current_user.get("_id")), request);
@@ -134,7 +134,7 @@ public class DBActions_U {
                                        String username, 
                                        String password, 
                                        HttpServletRequest request) throws ServletException, IOException {
-      String command = "SELECT * FROM Users WHERE username = ?;";
+      String command = "SELECT * FROM users WHERE username = ?;";
       String action = "setCurrentUser";
       return executeDBCommand(action, command, email, username, password, 0, request);
    }
