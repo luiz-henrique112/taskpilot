@@ -99,7 +99,7 @@ public class DataDBValidation_U {
    }
    
    private static String SQLquery(int attempt){
-      String query = "SELECT * FROM Users LIMIT 3 OFFSET " + setOFFSETValue(attempt) + ";";
+      String query = "SELECT * FROM users LIMIT 3 OFFSET " + setOFFSETValue(attempt) + ";";
       return query;
    }
 
