@@ -84,7 +84,7 @@ public class DBActions_T {
                               String term, 
                               String status,
                               HttpServletRequest request) throws ServletException, IOException {
-      String command = "INSERT INTO Tasks (name, description, term, userID) VALUES (?,?,?,?);";
+      String command = "INSERT INTO tasks (name, description, term, userID) VALUES (?,?,?,?);";
       String action = "CREATE";
       HttpSession session = request.getSession();
       Map<String, String> current_userData = get_currentUserList(session);
@@ -94,7 +94,7 @@ public class DBActions_T {
    }
 
    public ArrayList<Task> SELECT(HttpServletRequest request,  int user_ID) throws ServletException, IOException, SQLException{
-      String command = "SELECT * FROM Tasks WHERE UserID = ?";
+      String command = "SELECT * FROM tasks WHERE UserID = ?";
       String action = "SELECT";
 
       return executeDBCommand(action, command, "", "", "", "", user_ID, request) ? list : null;
@@ -107,7 +107,7 @@ public class DBActions_T {
                               int taskID,
                               HttpServletRequest request
                               ) throws ServletException, IOException{
-      String command = "UPDATE Tasks SET name = ?, description = ?, term = ?, status = ? WHERE taskID = ?";
+      String command = "UPDATE tasks SET name = ?, description = ?, term = ?, status = ? WHERE taskID = ?";
       String action = "UPDATE";
 
       return executeDBCommand(action, command, name, description, term, status, taskID, request);
@@ -115,7 +115,7 @@ public class DBActions_T {
    
    public static boolean DELETE(int ID, HttpServletRequest request) throws ServletException, IOException{
       String action = "DELETE";
-      String command = "DELETE from Tasks WHERE taskID = ?;";
+      String command = "DELETE from tasks WHERE taskID = ?;";
       return executeDBCommand(action, command, "", "", "", "", ID, request);
    }
 
