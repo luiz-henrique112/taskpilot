@@ -1,3 +1,4 @@
+```xml
 <project xmlns="http://maven.apache.org/POM/4.0.0" 
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 
@@ -19,7 +20,7 @@
 
     <dependencies>
 
-        <!-- Servlet API (Jakarta EE 10 - compatível com Tomcat 10+) -->
+        <!-- Servlet API (Tomcat fornece em runtime) -->
         <dependency>
             <groupId>jakarta.servlet</groupId>
             <artifactId>jakarta.servlet-api</artifactId>
@@ -27,7 +28,7 @@
             <scope>provided</scope>
         </dependency>
 
-        <!-- JSP API -->
+        <!-- JSP API (Tomcat fornece em runtime) -->
         <dependency>
             <groupId>jakarta.servlet.jsp</groupId>
             <artifactId>jakarta.servlet.jsp-api</artifactId>
@@ -35,22 +36,14 @@
             <scope>provided</scope>
         </dependency>
 
-        <!-- JSTL -->
+        <!-- JSTL (API + implementação juntos - CORRIGIDO) -->
         <dependency>
             <groupId>org.glassfish.web</groupId>
             <artifactId>jakarta.servlet.jsp.jstl</artifactId>
             <version>3.0.1</version>
         </dependency>
 
-         <!-- API do JSTL - Essencial para resolver o ClassNotFoundException -->
-         <dependency>
-             <groupId>jakarta.servlet.jsp.jstl</groupId>
-             <artifactId>jakarta.servlet.jsp.jstl-api</artifactId>
-             <version>3.0.0</version>
-         </dependency>
-
-
-        <!-- MySQL Connector (versão atualizada) -->
+        <!-- MySQL Driver -->
         <dependency>
             <groupId>com.mysql</groupId>
             <artifactId>mysql-connector-j</artifactId>
@@ -65,7 +58,7 @@
             <version>2.10.1</version>
         </dependency>
 
-        <!-- JUnit 5 (moderno) -->
+        <!-- JUnit -->
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter</artifactId>
@@ -73,7 +66,7 @@
             <scope>test</scope>
         </dependency>
 
-        <!-- Mockito (para testes) -->
+        <!-- Mockito -->
         <dependency>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-core</artifactId>
@@ -88,7 +81,7 @@
 
         <plugins>
 
-            <!-- Compiler Plugin (Java 22) -->
+            <!-- Compiler -->
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.11.0</version>
@@ -97,19 +90,19 @@
                 </configuration>
             </plugin>
 
-            <!-- Surefire Plugin (JUnit 5 compatível) -->
+            <!-- Testes -->
             <plugin>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>3.2.5</version>
             </plugin>
 
-            <!-- WAR Plugin -->
+            <!-- WAR -->
             <plugin>
                 <artifactId>maven-war-plugin</artifactId>
                 <version>3.4.0</version>
             </plugin>
 
-            <!-- Tomcat 10 Plugin -->
+            <!-- Tomcat 10 (deploy local opcional) -->
             <plugin>
                 <groupId>org.apache.tomcat.maven</groupId>
                 <artifactId>tomcat10-maven-plugin</artifactId>
@@ -125,3 +118,4 @@
     </build>
 
 </project>
+```
