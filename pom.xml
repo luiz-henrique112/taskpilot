@@ -42,6 +42,14 @@
             <version>3.0.1</version>
         </dependency>
 
+         <!-- API do JSTL - Essencial para resolver o ClassNotFoundException -->
+         <dependency>
+             <groupId>jakarta.servlet.jsp.jstl</groupId>
+             <artifactId>jakarta.servlet.jsp.jstl-api</artifactId>
+             <version>3.0.0</version>
+         </dependency>
+
+
         <!-- MySQL Connector (versão atualizada) -->
         <dependency>
             <groupId>com.mysql</groupId>
